@@ -53,8 +53,10 @@ class Particle {
   //--------------------------------------------------------------------------------//
   void display() {
     stroke(255, lifespan);
-    fill(255, lifespan);
-    ellipse(position.x, position.y, 8, 8);
+    PShape spark = loadShape("sparks/Untitled-1.svg");
+    //spark.setStroke(255, int(lifespan));
+    //spark.setFill(color(random(255)), int(lifespan));
+    shape(spark, position.x, position.y, 8, 8);
   }
   //--------------------------------------------------------------------------------//
 
