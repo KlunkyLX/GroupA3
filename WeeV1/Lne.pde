@@ -1,15 +1,22 @@
-// A simple Particle class introducing PShape for the actual particles
+// Class to 
 
-class Particle {
+// Class name.
+class Lne {
 
   //--------------------------------------------------------------------------------//
   //--------------------------- Instance Variables Start ---------------------------//
   //--------------------------------------------------------------------------------//
-  PVector position;
-  PVector velocity;
-  PVector acceleration;
-  float lifespan;
-  PShape pShape;
+  float beginX;    // Initial x-coordinate
+  float beginY;    // Initial y-coordinate
+  float endX;      // Final x-coordinate
+  float endY;      // Final y-coordinate
+  float distX;     // X-axis distance to move
+  float distY;     // Y-axis distance to move
+  float exponent;  // Determines the curve
+  float x;         // Current x-coordinate
+  float y;         // Current y-coordinate
+  float step;      // Size of each step along the path
+  float pct;       // Percentage traveled (0.0 to 1.0)
   //--------------------------------------------------------------------------------//
   //---------------------------- Instance Variables End ----------------------------//
   //--------------------------------------------------------------------------------//
@@ -18,16 +25,21 @@ class Particle {
   //------------------------------ Constructor Start -------------------------------//
   //--------------------------------------------------------------------------------//
 
-  Particle(PVector l, PShape _pShape) {
-    //acceleration = new PVector(0.0, 0.05);
-    //acceleration = new PVector(0.1, 0.1);  // straight up
-    acceleration = new PVector(0.1, 0.1);
-    velocity = new PVector(random(-10, 10), random(-20, -35));  // x, y
-    //velocity = new PVector(random(-1, 1), random(-2, 0));
-    position = l.copy();
-    pShape = _pShape;
-    lifespan = 255.0;
-  }
+  Lne() {
+
+    beginX = width;  // Initial x-coordinate
+    beginY = height * 0.6;  // Initial y-coordinate
+    endX = width * 0.8;   // Final x-coordinate
+    endY = height;   // Final y-coordinate
+    exponent = 5;   // Determines the curve
+    x = 0.0;        // Current x-coordinate
+    y = 0.0;        // Current y-coordinate
+    step = 0.03;    // Size of each step along the path
+    pct = 0.0;      // Percentage traveled (0.0 to 1.0)
+
+    distX = endX - beginX;
+    distY = endY - beginY;
+  }  // cnstrctr enclsng brce
   //--------------------------------------------------------------------------------//
   //------------------------------- Constructor End --------------------------------//
   //--------------------------------------------------------------------------------//
@@ -35,46 +47,22 @@ class Particle {
   //--------------------------------------------------------------------------------//
   //----------------------------- Functionality Start ------------------------------//
   //--------------------------------------------------------------------------------//
+  // Mthd to cyle thrgh draw animation.
   //--------------------------------------------------------------------------------//
-
-  // Method to display ea prtcle
-  //--------------------------------------------------------------------------------//
-  void run() {
-    update();
-    display();
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Method to update position of prtcle in above mthd
-  //--------------------------------------------------------------------------------//
-  void update() {
-    velocity.add(acceleration);  // x, y
-    position.add(velocity);
-    lifespan -= 1.0;
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Method to draw prtcle in above mthd
-  //--------------------------------------------------------------------------------//
-  void display() {
-    stroke(255, lifespan);
-    //PShape spark = loadShape("sparks/Untitled-2.svg");
-    //PShape spark = loadShape("sparks/bot1.svg");
-    //spark.setStroke(255, int(lifespan));
-    pShape.setFill(0);
-    shape(pShape, position.x, position.y, 200, 200);
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Is the particle still useful???
-  //--------------------------------------------------------------------------------//
-  boolean isDead() {
-    if (lifespan < 0.0) {
-      return true;
-    } else {
-      return false;
+  void animate() {
+    noStroke();
+    fill(0, 5);
+    rect(0, 0, width, height);
+    pct += step;
+    if (pct < 1.0) {
+      x = beginX + ((pct) * distX);
+      x = beginX + ((pct) * distX);
+      y = beginY + (pow(pct, exponent) * distY);
+      y = beginY + (pow(pct, exponent) * distY);
     }
-  }
+    fill(255);
+    ellipse(x, y, 10, 10);
+  }  // mthd enclsng brce
   //--------------------------------------------------------------------------------//
 
   //--------------------------------------------------------------------------------//

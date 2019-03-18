@@ -15,9 +15,8 @@
 
 // Global variables
 //--------------------------------------------------------------------------------//
-ParticleSystem psSprksLft;
-ParticleSystem psSprksRght;
-ParticleSystem psHearts;
+ArrayList<Lne> lnes = new ArrayList<Lne>();
+int indx = 0;
 //--------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------//
@@ -25,36 +24,29 @@ ParticleSystem psHearts;
 //--------------------------------------------------------------------------------//
 
 void setup() {
-  size(1000, 800);
-  //frameRate(30.0);
-  // Local variables
-  //--------------------------------------------------------------------------------//
-  //--------------------------------------------------------------------------------//
+  size(960, 600);
 
-  ArrayList<PShape> sparks = loadAndPop("sparks/");  // sep tab
-  ArrayList<PShape> hearts = loadAndPop("hearts/");  // sep tab
-  // Params: 1: origin, 2: pshape SVGs
-  psSprksLft = new ParticleSystem(new PVector(width/4, height/2), sparks);
-  psSprksRght = new ParticleSystem(new PVector(width*0.75, height/2), sparks);
-  psHearts = new ParticleSystem(new PVector(width/2, height/2), hearts);
+  // Create lines
+  for (int i=0; i <10; i++) {
+    lnes.add(new Lne());
+  }
 }  // setup enclsng brce
 
 //--------------------------------------------------------------------------------//
 //---------------------------------- Setup End -----------------------------------//
 //--------------------------------------------------------------------------------//
-
 //--------------------------------------------------------------------------------//
 //---------------------------------- Draw Start ----------------------------------//
 //--------------------------------------------------------------------------------//
 
 void draw() {
-  background(255);
-  psSprksLft.addParticle();
-  psSprksLft.run();
-  /*psSprksRght.addParticle();
-  psSprksRght.run();*/
-  psHearts.addParticle();
-  psHearts.run();
+
+  // Loop thrgh ea filename, load ea SVG and put into arrylst
+  //for (int i=0; i < lnes.size()-1; i++) {
+    Lne wee = lnes.get(indx);
+    wee.animate();
+  indx++;
+  
 }  // draw enclsng brce
 
 //--------------------------------------------------------------------------------//
@@ -63,6 +55,7 @@ void draw() {
 
 //--------------------------------------------------------------------------------//
 //----------------------------- Functionality Start ------------------------------//
+//--------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------//
 //------------------------------ Functionality End -------------------------------//

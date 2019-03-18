@@ -1,15 +1,15 @@
-// A simple Particle class introducing PShape for the actual particles
+// A class to describe a group of Particles
+// An ArrayList is used to manage the list of Particles 
 
-class Particle {
+class ParticleSystem {
 
   //--------------------------------------------------------------------------------//
   //--------------------------- Instance Variables Start ---------------------------//
   //--------------------------------------------------------------------------------//
-  PVector position;
-  PVector velocity;
-  PVector acceleration;
-  float lifespan;
-  PShape pShape;
+  PVector origin;
+  ArrayList<PImage> pImages = new ArrayList<PImage>();
+  float xA, yA, xV, yV;
+  ArrayList<Particle> particles;
   //--------------------------------------------------------------------------------//
   //---------------------------- Instance Variables End ----------------------------//
   //--------------------------------------------------------------------------------//
@@ -18,15 +18,12 @@ class Particle {
   //------------------------------ Constructor Start -------------------------------//
   //--------------------------------------------------------------------------------//
 
-  Particle(PVector l, PShape _pShape) {
-    //acceleration = new PVector(0.0, 0.05);
-    //acceleration = new PVector(0.1, 0.1);  // straight up
-    acceleration = new PVector(0.1, 0.1);
-    velocity = new PVector(random(-10, 10), random(-20, -35));  // x, y
-    //velocity = new PVector(random(-1, 1), random(-2, 0));
-    position = l.copy();
-    pShape = _pShape;
-    lifespan = 255.0;
+  ParticleSystem(PVector position, ArrayList<PImage> _pImages, float _xA, float _yA) {
+    origin = position.copy();
+    pImages = _pImages;
+    xA=_xA; 
+    yA=_yA;
+    particles = new ArrayList<Particle>();
   }
   //--------------------------------------------------------------------------------//
   //------------------------------- Constructor End --------------------------------//
@@ -35,46 +32,26 @@ class Particle {
   //--------------------------------------------------------------------------------//
   //----------------------------- Functionality Start ------------------------------//
   //--------------------------------------------------------------------------------//
+
+  // Method to add new prtcle to the arraylist
+  //--------------------------------------------------------------------------------//
+  void addParticle() {
+    int rndm = round(random(0.0, pImages.size()-1));
+    particles.add(new Particle(origin, pImages.get(rndm), xA, yA));  // pick a rndm PNG
+  }  // mthd enclsng brce  
   //--------------------------------------------------------------------------------//
 
-  // Method to display ea prtcle
+  // Method to ...
   //--------------------------------------------------------------------------------//
   void run() {
-    update();
-    display();
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Method to update position of prtcle in above mthd
-  //--------------------------------------------------------------------------------//
-  void update() {
-    velocity.add(acceleration);  // x, y
-    position.add(velocity);
-    lifespan -= 1.0;
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Method to draw prtcle in above mthd
-  //--------------------------------------------------------------------------------//
-  void display() {
-    stroke(255, lifespan);
-    //PShape spark = loadShape("sparks/Untitled-2.svg");
-    //PShape spark = loadShape("sparks/bot1.svg");
-    //spark.setStroke(255, int(lifespan));
-    pShape.setFill(0);
-    shape(pShape, position.x, position.y, 200, 200);
-  }
-  //--------------------------------------------------------------------------------//
-
-  // Is the particle still useful???
-  //--------------------------------------------------------------------------------//
-  boolean isDead() {
-    if (lifespan < 0.0) {
-      return true;
-    } else {
-      return false;
+    for (int i = particles.size()-1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.run();
+      if (p.isDead()) {
+        particles.remove(i);
+      }
     }
-  }
+  }  // mthd enclsng brce
   //--------------------------------------------------------------------------------//
 
   //--------------------------------------------------------------------------------//

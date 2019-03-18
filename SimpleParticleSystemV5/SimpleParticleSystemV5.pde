@@ -25,18 +25,23 @@ ParticleSystem psHearts;
 //--------------------------------------------------------------------------------//
 
 void setup() {
-  size(1000, 800);
+  fullScreen(P2D);
+  //fullScreen(P2D, 2);
+  //size(1920, 1200);
   //frameRate(30.0);
   // Local variables
   //--------------------------------------------------------------------------------//
   //--------------------------------------------------------------------------------//
 
-  ArrayList<PShape> sparks = loadAndPop("sparks/");  // sep tab
-  ArrayList<PShape> hearts = loadAndPop("hearts/");  // sep tab
+  // Particle systems
+  ArrayList<PImage> sparks = loadAndPop("sparks/");  // sep tab
+  ArrayList<PImage> hearts = loadAndPop("hearts/");  // sep tab
   // Params: 1: origin, 2: pshape SVGs
-  psSprksLft = new ParticleSystem(new PVector(width/4, height/2), sparks);
-  psSprksRght = new ParticleSystem(new PVector(width*0.75, height/2), sparks);
-  psHearts = new ParticleSystem(new PVector(width/2, height/2), hearts);
+  psSprksLft = new ParticleSystem(new PVector(width/4, height/2), sparks, 0.0, 0.05);
+  psSprksRght = new ParticleSystem(new PVector(width*0.75, height/2), sparks, 0.0, 0.05);
+  psHearts = new ParticleSystem(new PVector(width/2, height/2), hearts, 0.001, 0.001);
+  
+  
 }  // setup enclsng brce
 
 //--------------------------------------------------------------------------------//
@@ -49,12 +54,14 @@ void setup() {
 
 void draw() {
   background(255);
-  psSprksLft.addParticle();
-  psSprksLft.run();
-  /*psSprksRght.addParticle();
-  psSprksRght.run();*/
-  psHearts.addParticle();
-  psHearts.run();
+
+  /*
+  1 = left sparks
+   2 = right sparks
+   3 = both sparks
+   4 = hearts
+   */
+  keyActions();
 }  // draw enclsng brce
 
 //--------------------------------------------------------------------------------//
@@ -63,6 +70,32 @@ void draw() {
 
 //--------------------------------------------------------------------------------//
 //----------------------------- Functionality Start ------------------------------//
+//--------------------------------------------------------------------------------//
+
+// Mthd to action animation on keypress
+//--------------------------------------------------------------------------------//
+void keyActions() {
+
+  if (keyPressed) {
+    if (key == '1') {
+      psSprksLft.addParticle();
+      psSprksLft.run();
+    } else if (key == '2') {
+      psSprksRght.addParticle();
+      psSprksRght.run();
+    } else if (key == '3') {
+      psSprksLft.addParticle();
+      psSprksRght.addParticle();
+      psSprksLft.run();
+      psSprksRght.run();
+    } else if (key == '4') {
+      psHearts.addParticle();
+      psHearts.run();
+    }
+  }
+}  // mthd enclsng brce
+//--------------------------------------------------------------------------------//
+
 //--------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------//
 //------------------------------ Functionality End -------------------------------//

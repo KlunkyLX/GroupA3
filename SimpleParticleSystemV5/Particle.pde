@@ -8,8 +8,9 @@ class Particle {
   PVector position;
   PVector velocity;
   PVector acceleration;
+  float xA, yA;
   float lifespan;
-  PShape pShape;
+  PImage pImage;
   //--------------------------------------------------------------------------------//
   //---------------------------- Instance Variables End ----------------------------//
   //--------------------------------------------------------------------------------//
@@ -18,14 +19,13 @@ class Particle {
   //------------------------------ Constructor Start -------------------------------//
   //--------------------------------------------------------------------------------//
 
-  Particle(PVector l, PShape _pShape) {
-    //acceleration = new PVector(0.0, 0.05);
-    //acceleration = new PVector(0.1, 0.1);  // straight up
-    acceleration = new PVector(0.1, 0.1);
-    velocity = new PVector(random(-10, 10), random(-20, -35));  // x, y
-    //velocity = new PVector(random(-1, 1), random(-2, 0));
+  Particle(PVector l, PImage _pImage, float _xA, float _yA) {
+    xA=_xA; 
+    yA=_yA;
+    acceleration = new PVector(xA, yA);
+    velocity = new PVector(random(-10, 10), random(-10, -20));
     position = l.copy();
-    pShape = _pShape;
+    pImage = _pImage;
     lifespan = 255.0;
   }
   //--------------------------------------------------------------------------------//
@@ -57,12 +57,7 @@ class Particle {
   // Method to draw prtcle in above mthd
   //--------------------------------------------------------------------------------//
   void display() {
-    stroke(255, lifespan);
-    //PShape spark = loadShape("sparks/Untitled-2.svg");
-    //PShape spark = loadShape("sparks/bot1.svg");
-    //spark.setStroke(255, int(lifespan));
-    pShape.setFill(0);
-    shape(pShape, position.x, position.y, 200, 200);
+    image(pImage, position.x, position.y);
   }
   //--------------------------------------------------------------------------------//
 
