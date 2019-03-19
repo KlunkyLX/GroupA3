@@ -117,11 +117,15 @@ void keyActions() {
     } else if (key == '5') {
       niccy.byeNic();
     } else if (key == '6') {
-      image(poww1, width/2, height/2);
+      image(poww1, width/3, height/3.2);
     } else if (key == '7') {
-      image(poww2, width/2, height/2);
+      image(poww2, width/4, height/5);
+      image(poww1, width/3, height/3.2);
     } else if (key == '8') {
-      image(poww3, width/2, height/2);
+      poww3.resize(1000, 0);
+      image(poww3, 350, 0);
+      image(poww2, width/4, height/5);
+      image(poww1, width/3, height/3.2);
     } else if (key == '9') {
       psHearts.addParticle();
       psHearts.run();
