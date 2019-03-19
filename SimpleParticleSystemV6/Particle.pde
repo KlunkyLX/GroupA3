@@ -1,15 +1,16 @@
-// A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles 
+// A simple Particle class introducing PShape for the actual particles
 
-class ParticleSystem {
+class Particle {
 
   //--------------------------------------------------------------------------------//
   //--------------------------- Instance Variables Start ---------------------------//
   //--------------------------------------------------------------------------------//
-  PVector origin;
-  ArrayList<PImage> pImages = new ArrayList<PImage>();
-  float xA, yA, xV, yV;
-  ArrayList<Particle> particles;
+  PVector position;
+  PVector velocity;
+  PVector acceleration;
+  float xA, yA;
+  float lifespan;
+  PImage pImage;
   //--------------------------------------------------------------------------------//
   //---------------------------- Instance Variables End ----------------------------//
   //--------------------------------------------------------------------------------//
@@ -18,12 +19,14 @@ class ParticleSystem {
   //------------------------------ Constructor Start -------------------------------//
   //--------------------------------------------------------------------------------//
 
-  ParticleSystem(PVector position, ArrayList<PImage> _pImages, float _xA, float _yA) {
-    origin = position.copy();
-    pImages = _pImages;
+  Particle(PVector l, PImage _pImage, float _xA, float _yA) {
     xA=_xA; 
     yA=_yA;
-    particles = new ArrayList<Particle>();
+    acceleration = new PVector(xA, yA);
+    velocity = new PVector(random(-10, 10), random(-10, -20));
+    position = l.copy();
+    pImage = _pImage;
+    lifespan = 255.0;
   }
   //--------------------------------------------------------------------------------//
   //------------------------------- Constructor End --------------------------------//
@@ -32,26 +35,41 @@ class ParticleSystem {
   //--------------------------------------------------------------------------------//
   //----------------------------- Functionality Start ------------------------------//
   //--------------------------------------------------------------------------------//
-
-  // Method to add new prtcle to the arraylist
-  //--------------------------------------------------------------------------------//
-  void addParticle() {
-    int rndm = round(random(0.0, pImages.size()-1));  
-    particles.add(new Particle(origin, pImages.get(rndm), xA, yA));  // pick a rndm PNG
-  }  // mthd enclsng brce  
   //--------------------------------------------------------------------------------//
 
-  // Method to ...
+  // Method to display ea prtcle
   //--------------------------------------------------------------------------------//
   void run() {
-    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.run();
-      if (p.isDead()) {
-        particles.remove(i);
-      }
+    update();
+    display();
+  }
+  //--------------------------------------------------------------------------------//
+
+  // Method to update position of prtcle in above mthd
+  //--------------------------------------------------------------------------------//
+  void update() {
+    velocity.add(acceleration);  // x, y
+    position.add(velocity);
+    lifespan -= 1.0;
+  }
+  //--------------------------------------------------------------------------------//
+
+  // Method to draw prtcle in above mthd
+  //--------------------------------------------------------------------------------//
+  void display() {
+    image(pImage, position.x, position.y);
+  }
+  //--------------------------------------------------------------------------------//
+
+  // Is the particle still useful???
+  //--------------------------------------------------------------------------------//
+  boolean isDead() {
+    if (lifespan < 0.0) {
+      return true;
+    } else {
+      return false;
     }
-  }  // mthd enclsng brce
+  }
   //--------------------------------------------------------------------------------//
 
   //--------------------------------------------------------------------------------//

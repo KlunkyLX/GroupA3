@@ -20,6 +20,9 @@ ParticleSystem psSprksRght;
 ParticleSystem psHearts;
 
 Niccy niccy;
+PImage poww1;
+PImage poww2;
+PImage poww3;
 //--------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------//
@@ -31,9 +34,6 @@ void setup() {
   //fullScreen(P2D, 2);
   size(1920, 1200);
   frameRate(30.0);
-  // Local variables
-  //--------------------------------------------------------------------------------//
-  //--------------------------------------------------------------------------------//
 
   // Particle systems
   ArrayList<PImage> sparks = loadAndPop("sparks/");  // sep tab
@@ -44,6 +44,9 @@ void setup() {
   psHearts = new ParticleSystem(new PVector(width/2, height/2), hearts, 0.001, 0.001);
 
   niccy = new Niccy();
+  poww1 = loadImage("poww1.png");
+  poww2 = loadImage("poww2.png");
+  poww3 = loadImage("poww3.png");
 }  // setup enclsng brce
 
 //--------------------------------------------------------------------------------//
@@ -64,11 +67,11 @@ void draw() {
    1 = left sparks
    2 = right sparks
    3 = both sparks
-   4 = urinate
-   5 = Nicole
-   6 = jigger
-   7 = vomit
-   8 = pow
+   4 = Nicole
+   5 = jigger
+   6 = pow1
+   7 = pow2
+   9 = pow3
    9 = hearts
    */
 
@@ -91,21 +94,6 @@ void pulse() {
 }  // mthd enclsng brce
 //--------------------------------------------------------------------------------//
 
-// Mthd to mouse draw lines
-//--------------------------------------------------------------------------------//
-void scrbble(color _c) {
-  color c = _c;
-  fill(c);
-  ellipse(mouseX, mouseY, 25, 25);
-}  // mthd enclsng brce
-//--------------------------------------------------------------------------------//
-
-// Mthd to draw three poww images
-//--------------------------------------------------------------------------------//
-void poww() {
-}  // mthd enclsng brce
-//--------------------------------------------------------------------------------//
-
 // Mthd to action animation on keypress
 //--------------------------------------------------------------------------------//
 void keyActions() {
@@ -125,17 +113,15 @@ void keyActions() {
       psSprksLft.run();
       psSprksRght.run();
     } else if (key == '4') {
-      color yellow = color(100, 100, 0);
-      scrbble(yellow);
-    } else if (key == '5') {
       niccy.hiNic();
-    } else if (key == '6') {
+    } else if (key == '5') {
       niccy.byeNic();
+    } else if (key == '6') {
+      image(poww1, width/2, height/2);
     } else if (key == '7') {
-      color green = color(0, 255, 0);
-      scrbble(green);
+      image(poww2, width/2, height/2);
     } else if (key == '8') {
-      poww();
+      image(poww3, width/2, height/2);
     } else if (key == '9') {
       psHearts.addParticle();
       psHearts.run();

@@ -1,15 +1,14 @@
-// A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles 
+// Class to draw Niccy!
 
-class ParticleSystem {
+// Class name.
+class Niccy {
 
   //--------------------------------------------------------------------------------//
   //--------------------------- Instance Variables Start ---------------------------//
   //--------------------------------------------------------------------------------//
-  PVector origin;
-  ArrayList<PImage> pImages = new ArrayList<PImage>();
-  float xA, yA, xV, yV;
-  ArrayList<Particle> particles;
+  PImage nic;
+  float plus, minus;
+  int alter = 1;
   //--------------------------------------------------------------------------------//
   //---------------------------- Instance Variables End ----------------------------//
   //--------------------------------------------------------------------------------//
@@ -18,12 +17,10 @@ class ParticleSystem {
   //------------------------------ Constructor Start -------------------------------//
   //--------------------------------------------------------------------------------//
 
-  ParticleSystem(PVector position, ArrayList<PImage> _pImages, float _xA, float _yA) {
-    origin = position.copy();
-    pImages = _pImages;
-    xA=_xA; 
-    yA=_yA;
-    particles = new ArrayList<Particle>();
+  Niccy() {
+    nic = loadImage("Asset 30.png");
+    plus = 1;
+    minus = -1;
   }
   //--------------------------------------------------------------------------------//
   //------------------------------- Constructor End --------------------------------//
@@ -33,24 +30,27 @@ class ParticleSystem {
   //----------------------------- Functionality Start ------------------------------//
   //--------------------------------------------------------------------------------//
 
-  // Method to add new prtcle to the arraylist
+  // Mthd to draw image
   //--------------------------------------------------------------------------------//
-  void addParticle() {
-    int rndm = round(random(0.0, pImages.size()-1));  
-    particles.add(new Particle(origin, pImages.get(rndm), xA, yA));  // pick a rndm PNG
-  }  // mthd enclsng brce  
+  void hiNic() {
+    image(nic, width/2, height/2);
+  }  // mthd enclsng brce
   //--------------------------------------------------------------------------------//
 
-  // Method to ...
+  // Mthd to draw image at randon location
   //--------------------------------------------------------------------------------//
-  void run() {
-    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.run();
-      if (p.isDead()) {
-        particles.remove(i);
-      }
+  void byeNic() {
+
+    int inc = int(random(minus, plus));
+    if (alter == 1) {
+      image(nic, (width/2)+inc, (height/2)-inc);
+      alter = 2;
+    } else {
+      image(nic, (width/2)-inc, (height/2)+inc);
+      alter = 1;
     }
+    minus = minus - 2;
+    plus = plus + 2;
   }  // mthd enclsng brce
   //--------------------------------------------------------------------------------//
 
