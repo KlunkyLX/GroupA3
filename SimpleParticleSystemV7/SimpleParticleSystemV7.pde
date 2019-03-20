@@ -11,10 +11,13 @@
 
 // Import libraries
 //--------------------------------------------------------------------------------//
+import spout.*;
 //--------------------------------------------------------------------------------//
 
 // Global variables
 //--------------------------------------------------------------------------------//
+Spout spout;
+
 ParticleSystem psSprksLft;
 ParticleSystem psSprksRght;
 ParticleSystem psHearts;
@@ -32,8 +35,11 @@ PImage poww3;
 void setup() {
   //fullScreen(P2D);
   //fullScreen(P2D, 2);
-  size(1920, 1200);
+  size(1920, 1200, P2D);
   //frameRate(30.0);
+
+  spout = new Spout(this);
+  spout.createSender("1 to 9.main");  // create a named sender
 
   // Particle systems
   ArrayList<PImage> sparks = loadAndPop("sparks/");  // sep tab
@@ -71,11 +77,12 @@ void draw() {
    5 = jigger
    6 = pow1
    7 = pow2
-   9 = pow3
+   8 = pow3
    9 = hearts
    */
 
   keyActions();
+  spout.sendTexture();
 }  // draw enclsng brce
 
 //--------------------------------------------------------------------------------//

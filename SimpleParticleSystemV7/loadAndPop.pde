@@ -6,8 +6,8 @@
 
 ArrayList<PImage> loadAndPop(String fldr) {
   ArrayList<PImage> files = new ArrayList<PImage>();
-  //String dir = "C:/Users/trist/version-control/GroupA3/SimpleParticleSystemV6/data/" + fldr;
-  String dir = "E:/version-control/GroupA3/SimpleParticleSystemV6/data/" + fldr;
+  //String dir = "C:/Users/trist/version-control/GroupA3/SimpleParticleSystemV7/data/" + fldr;
+  String dir = "E:/version-control/GroupA3/SimpleParticleSystemV7/data/" + fldr;
   String names[];
   File file = new File(dir);
 

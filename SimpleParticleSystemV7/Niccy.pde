@@ -18,7 +18,8 @@ class Niccy {
   //--------------------------------------------------------------------------------//
 
   Niccy() {
-    nic = loadImage("Asset 30.png");
+    nic = loadImage("GroupA3jenAnist.jpg");
+    nic.resize(width/5, 0);
     plus = 1;
     minus = -1;
   }
@@ -33,7 +34,7 @@ class Niccy {
   // Mthd to draw image
   //--------------------------------------------------------------------------------//
   void hiNic() {
-    image(nic, width/2, height/2);
+    image(nic, width/2 - 200, 300);
   }  // mthd enclsng brce
   //--------------------------------------------------------------------------------//
 
@@ -43,10 +44,10 @@ class Niccy {
 
     int inc = int(random(minus, plus));
     if (alter == 1) {
-      image(nic, (width/2)+inc, (height/2)-inc);
+      image(nic, (width/2 - 200)+inc, 300-inc);
       alter = 2;
     } else {
-      image(nic, (width/2)-inc, (height/2)+inc);
+      image(nic, (width/2 - 200)-inc, 300+inc);
       alter = 1;
     }
     minus = minus - 2;
