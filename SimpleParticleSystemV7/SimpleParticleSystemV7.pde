@@ -35,7 +35,7 @@ PImage poww3;
 void setup() {
   //fullScreen(P2D);
   //fullScreen(P2D, 2);
-  size(1920, 1200, P2D);
+  size(1920, 1080, P2D);
   //frameRate(30.0);
 
   spout = new Spout(this);

@@ -20,7 +20,7 @@ Spout spout;
 void setup() {
   //fullScreen(P2D);
   //fullScreen(P2D, 2);
-  size(1920, 1200, P2D);
+  size(1920, 1080, P2D);
   //frameRate(30.0);
   smooth();
   background(255);
@@ -39,6 +39,9 @@ void setup() {
 //--------------------------------------------------------------------------------//
 
 void draw() {
+  /*background(255);
+  fill(0);  // black
+  ellipse(mouseX, mouseY, 5, 5);*/
 
   /*
   Enter = pulse
